@@ -1054,6 +1054,9 @@ public class Driver {
      * @return fresh access token
      */
     private String getFreshAccessToken() {
+        logger.info("[1] Getting fresh access token");
+        logger.info(oidcClient.getTokens().await().indefinitely().getAccessToken());
+        logger.info("[2] got fresh access token");
         return oidcClient.getTokens().await().indefinitely().getAccessToken();
     }
 }
