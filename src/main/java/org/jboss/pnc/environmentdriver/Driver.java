@@ -50,6 +50,7 @@ import javax.ws.rs.core.MediaType;
 import io.quarkus.oidc.client.OidcClient;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.text.StringSubstitutor;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.jboss.pnc.api.constants.HttpHeaders;
@@ -153,6 +154,15 @@ public class Driver {
 
     @Inject
     OidcClient oidcClient;
+
+    @ConfigProperty(name = "quarkus.oidc-client.auth-server-url")
+    String authServerUrl;
+
+    @ConfigProperty(name = "quarkus.oidc-client.client-id")
+    String clientId;
+
+    @ConfigProperty(name = "quarkus.oidc-client.credentials.secret")
+    String secret;
 
     ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
@@ -1054,7 +1064,8 @@ public class Driver {
      * @return fresh access token
      */
     private String getFreshAccessToken() {
-        logger.info("[1] Getting fresh access token");
+        logger.info("[1] Getting fresh access token: {} :: {} :: {}", authServerUrl, clientId, secret);
+        logger.info("Is oidc client null? '{}'", oidcClient == null);
         logger.info(oidcClient.getTokens().await().indefinitely().getAccessToken());
         logger.info("[2] got fresh access token");
         return oidcClient.getTokens().await().indefinitely().getAccessToken();
