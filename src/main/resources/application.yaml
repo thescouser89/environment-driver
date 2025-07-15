@@ -221,7 +221,8 @@ environment-driver:
       enabled: false
     log:
       console:
-        json: false
+        json:
+          enabled: false
   environment-driver:
     http-client:
       connect-timeout: 1
@@ -313,9 +314,9 @@ environment-driver:
           clusterIP: 127.0.0.1
   bifrost-uploader:
     api-url: "http://localhost:9999"
-
-"%dev":
+'%dev':
   quarkus:
     log:
       console:
-        json: false
+        json:
+          enabled: false
