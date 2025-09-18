@@ -21,6 +21,8 @@ quarkus:
 #        async-queue-length: 1024
 #        async-overflow-action: BLOCK
   http:
+    enable-compression: true
+    enable-decompression: true
     cors:
       ~: true
       origins: "/.*/"
